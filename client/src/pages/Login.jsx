@@ -3,12 +3,15 @@ import { LuEyeClosed } from "react-icons/lu";
 import { LuEye } from "react-icons/lu";
 import { IoMail } from "react-icons/io5";
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 function Login() {
   const [email,setEmail]=useState('')
   const [pass,setPass]=useState('')
   const [open,setOpen]=useState(false)
   const [close,setClose]=useState(true)
   const [type,setType]=useState('password')
+
   const eyeOpen=()=>{
     setClose(true)
     setOpen(false)
@@ -21,35 +24,63 @@ function Login() {
   }
   const login=(e)=>{
     e.preventDefault();
-    console.log('login sucessful')
+    console.log('login successful')
   }
+  const nav=useNavigate()
+
   return (
-    <div className='min-h-screen w-full flex justify-center items-center bg-slate-100 '>
-      <div className='flex flex-col justify-center items-center  m-auto rounded-lg shadow-2xl  h-screen md:h-1/3 sm:h-1/4 md:w-1/2 w-full  shadow-gray-400 bg-neutral-100'>
-        <div className='m-5'>
-          <p className='text-4xl font-bold text-shadow-lg'>Login page!!!</p> 
+    <div className='min-h-screen w-full flex justify-center items-center bg-slate-100'>
+      <div className='flex flex-col justify-center items-center m-auto rounded-xl shadow-2xl md:h-[70%] h-screen md:w-[40%] w-[90%] shadow-gray-400 bg-neutral-100 px-8 py-10'>
+
+        <div className='mb-6'>
+          <p className='text-3xl font-bold text-gray-800 text-center'>Login Page - Ed-Tech Media !!!</p>
         </div>
 
-        <div className='w-1/2 h-1/12  mt-5 rounded-lg shadow-2xl bg-slate-300 flex flex-row'>
-           <input className='text-center' type='text ' placeholder='Enter your email' value={email} onChange={(e)=>setEmail(e.target.value)}/>
-           <IoMail className='self-center ml-4' size={40}/>
+        {/* Email Input */}
+        <div className='w-full md:w-3/4 h-12 mt-4 rounded-lg shadow-md bg-slate-200 flex items-center px-4'>
+          <input
+            className='flex-1 bg-transparent outline-none text-gray-700 placeholder-gray-500 text-base'
+            type='email'
+            placeholder='Enter your email'
+            value={email}
+            onChange={(e)=>setEmail(e.target.value)}
+          />
+          <IoMail className='text-gray-600 mr-3' size={24}/>
         </div>
-        <div className='w-1/2 h-1/12  mt-10 rounded-lg shadow-2xl bg-slate-300 flex flex-row'>
-           <input className='text-center' type={type} placeholder='password' value={pass} onChange={(e)=>setPass(e.target.value)}/>
-           {
-            open && <LuEye onClick={eyeOpen} className='self-center ml-4' size={40}/>
-           }
-           {
-            close  && <LuEyeClosed onClick={eyeClose} className='self-center ml-4' size={40}/>
-           }
 
+        {/* Password Input */}
+        <div className='w-full md:w-3/4 h-12 mt-8 rounded-lg shadow-md bg-slate-200 flex items-center px-4'>
+          <input
+            className='flex-1 bg-transparent outline-none text-gray-700 placeholder-gray-500 text-base'
+            type={type}
+            placeholder='Password'
+            value={pass}
+            onChange={(e)=>setPass(e.target.value)}
+          />
+          {open && <LuEye onClick={eyeOpen} className='text-gray-600 cursor-pointer' size={24}/>}
+          {close && <LuEyeClosed onClick={eyeClose} className='text-gray-600 cursor-pointer' size={24}/>}
         </div>
-             <div className='mt-15 w-1/4 h-1/11  box-border rounded-lg shadow-2xl bg-gray-200 flex justify-center-safe items-center' onClick={login}>
-               <span className='text-xl font-bold text-shadow-lg text-center p-5' >Login</span>
-             </div>
-        <div className='m-5 w-full self-start  flex justify-around mt-10'>
-          <span className='text-base text-red-300'>Forgot password ?</span> 
-          <p >Dont have an account ? <span className='text-cyan-400'>Sign up</span></p> 
+
+        {/* Login Button */}
+        <div
+          className='mt-10 w-1/2 py-3 rounded-lg shadow-md bg-gray-300 hover:bg-gray-400 transition-all duration-200 flex justify-center items-center cursor-pointer'
+          onClick={login}
+        >
+          <span className='text-xl font-bold text-gray-800'>Login</span>
+        </div>
+
+        {/* Footer */}
+        <div className='mt-8 w-full flex justify-between items-center px-5 text-sm'>
+          <span className='text-red-400 cursor-pointer hover:underline'>Forgot password?</span>
+          <p className='text-gray-600'>
+            Don’t have an account?{' '}
+            <span
+              className='text-cyan-500 font-semibold cursor-pointer hover:underline'
+              onClick={()=>nav('/signup')}
+            >
+              Sign up
+            </span>
+          </p>
         </div>
       </div>
     </div>
