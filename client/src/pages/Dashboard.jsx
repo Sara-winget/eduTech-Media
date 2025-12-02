@@ -23,7 +23,7 @@ function Dashboard() {
             <hr/>
             <Link to={"./setting"}>settings</Link>
       </div>
-      <div>
+      <div className='h-screen w-screen border border-amber-100 shadow-2xl rounded-4xl  bg-pink-50 mr-5 my-2'>
             <Outlet/>
       </div>
     </div>
